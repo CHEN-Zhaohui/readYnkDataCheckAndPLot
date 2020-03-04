@@ -9,12 +9,12 @@ Python 3.7
 
 Based on the LGADJ adjustment file, convert the boot file of the [Python Bayesian adjustment program](https://github.com/igp-gravity/geoist), check and plot all possible errors currently in the observation data.
 
-### 功能
+## 功能
 
 - 基于LGADJ平差文件，转换[python贝叶斯平差程序](https://github.com/igp-gravity/geoist)的引导文件，包含一些可能需要的备注，
   此外还可实现对观测数据文件的检查和绘图等。
 
-#### 数据文件检查
+### 数据文件检查
 
 - 检查数据的气压值低于常理的情况；
 
@@ -36,13 +36,25 @@ Based on the LGADJ adjustment file, convert the boot file of the [Python Bayesia
 
 - 生成贝叶斯平差所需的绝对值引导文件。
 
-### 结果
+## 结果
 
-#### 检查结果
+### 检查结果
 
+![pic](images\pic.png)
 
-#### 测点气压和温度变化结果
+### 测点气压和温度变化结果
 
+![YCXZ1906.627](pic\YCXZ1906.627.png)
+
+![YCXZ1906.635](images\YCXZ1906.635.png)
+
+![YCXZ1909.207](images\YCXZ1909.207.png)
+
+![YCXZ1909.229](images\YCXZ1909.229.png)
+
+![YCXZ1909.235](images\YCXZ1909.235.png)
+
+![YCXZ1909.427](images\YCXZ1909.427.png)
 
 
 <br>
