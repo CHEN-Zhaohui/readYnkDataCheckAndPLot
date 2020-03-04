@@ -1,6 +1,7 @@
 # readYnkDataCheckAndPLot
 
 Based on the LGADJ adjustment file, convert the boot file of the Python Bayesian adjustment program, check and plot all possible errors currently in the observation data.
+- Python Bayesian adjustment program: https://github.com/igp-gravity/geoist
 
 Created on Wed Feb 26 20:06:55 2020
 @author: Chen Zhaohui
