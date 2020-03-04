@@ -2,6 +2,7 @@
 
 Created on Wed Feb 26 20:06:55 2020
 @author: Chen Zhaohui
+
 Python 3.7
 
 ------
@@ -39,25 +40,8 @@ Based on the LGADJ adjustment file, convert the boot file of the [Python Bayesia
 
 #### 检查结果
 
-![图片2](C:\Users\Chen Zhaohui\Desktop\图片2.png)
 
 #### 测点气压和温度变化结果
-
-
-
-![YCXZ1906.627](F:\Program\readYnkDataCheckAndPLot\readYnkDataCheckAndPLot\images\YCXZ1906.627.png)
-
-![YCXZ1906.635](F:\Program\readYnkDataCheckAndPLot\readYnkDataCheckAndPLot\images\YCXZ1906.635.png)
-
-![YCXZ1909.207](F:\Program\readYnkDataCheckAndPLot\readYnkDataCheckAndPLot\images\YCXZ1909.207.png)
-
-![YCXZ1909.229](F:\Program\readYnkDataCheckAndPLot\readYnkDataCheckAndPLot\images\YCXZ1909.229.png)
-
-![YCXZ1909.235](F:\Program\readYnkDataCheckAndPLot\readYnkDataCheckAndPLot\images\YCXZ1909.235.png)
-
-![YCXZ1909.427](F:\Program\readYnkDataCheckAndPLot\readYnkDataCheckAndPLot\images\YCXZ1909.427.png)
-
-
 
 
 
