@@ -40,21 +40,21 @@ Based on the LGADJ adjustment file, convert the boot file of the [Python Bayesia
 
 ### 检查结果
 
-![pic](images\pic.png)
+![pic](images/pic.png)
 
 ### 测点气压和温度变化结果
 
-![YCXZ1906.627](pic\YCXZ1906.627.png)
+![YCXZ1906.627](./images/YCXZ1906.627.png)
 
-![YCXZ1906.635](images\YCXZ1906.635.png)
+![YCXZ1906.635](./images/YCXZ1906.635.png)
 
-![YCXZ1909.207](images\YCXZ1909.207.png)
+![YCXZ1909.207](./images/YCXZ1909.207.png)
 
-![YCXZ1909.229](images\YCXZ1909.229.png)
+![YCXZ1909.229](./images/YCXZ1909.229.png)
 
-![YCXZ1909.235](images\YCXZ1909.235.png)
+![YCXZ1909.235](./images/YCXZ1909.235.png)
 
-![YCXZ1909.427](images\YCXZ1909.427.png)
+![YCXZ1909.427](./images/YCXZ1909.427.png)
 
 
 <br>
