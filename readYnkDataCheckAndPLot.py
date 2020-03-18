@@ -15,26 +15,27 @@ Created on Wed Feb 26 20:06:55 2020
 4.检查相同点号之间没有用55555、44444 或 66666 隔开问题；
 5.检查55555、44444 或 66666之间仅有一行数据问题；
 6.检查绝对点是否在当期数据中实际联测；
-7.检查点值信息文件是否包含高程列；
-8.每个测点气压和温度值的相对变化结果图；
-9.所有测点气压和温度值的变化曲线，可辅助气压值的检查；
+7.检查点值信息文件高程列是否齐全；
+8.单个测点气压和温度值的相对变化结果图，辅助气压值的检查；
+9.测点气压和温度值的时间变化曲线，辅助气压值的检查；
 10.生成贝叶斯平差所需的绝对值引导文件。
 '''
 import os
 from itertools import islice
-import adjustmentDataCheck
-import make_data
 
-#一般只需要修改以下五行就可以实现，分别是定义目录、测网名和观测时间，以及给出格值表和ynk引导文件的名称。
-#定义程序运行目录（可使用绝对目录和相对目录），所有输入、输出文件均存储该目录下，目录中存在数字需要\\字符分开
-#例如：'E:\!Tibetan_Eastern_gravity\\1309\!adj可运行'
+from dataCheckFunction import data_file, check_adjustment_data, check_ag_data
+from dataCheckFunction import pressureAndTemperatureMapping
+
+# 一般只需要修改以下五行就可以实现，分别是定义目录、测网名和观测时间，以及给出格值表和ynk引导文件的名称。
+# 定义程序运行目录（可使用绝对目录和相对目录），所有输入、输出文件均存储该目录下，目录中存在数字需要\\字符分开
+# 例如：'E:\!Tibetan_Eastern_gravity\\1309\!adj可运行'
 directory = 'E:\野外监测\西藏平差计算测试'
 NetName = 'xizang'                              #定义测网名称
 Year_Month = '201909'                           #定义测量时间
 tab = 'TABLE.DAT'                               #格值表文件
 ynk = 'YCXZ1909.YNK'                                #adj运行的ynk引导文件件
 #
-#输出文件,这里以测网加测量时间和输出文件类型命名,根据前面参数自动生成
+# 输出文件,这里以测网加测量时间和输出文件类型命名,根据前面参数自动生成
 pyfile = NetName + Year_Month + '.py'           #定义python脚本文件名称,建议以测网和时间名称
 dzfile = NetName + Year_Month + 'dz.txt'        #点值文件：chuandian201409dz.txt
 dcfile = NetName + Year_Month + 'dc.txt'        #段差文件：chuandian201409dc.txt
@@ -61,11 +62,11 @@ outfile.write("#根据具体的仪器进行修改，CG-5仪器不用读取table�
 outfile.write("#若同一台仪器用在了不同的测网（存在2个及以上的平差数据文件），这台仪器要有不同的仪器名\n")
 outfile.write("#比如m1是“C098”仪器，m4是同一台仪器但gg.Meter中定义为“C0981”,它如果需要读取格值表即\n")
 outfile.write("#table.dat文件，将table中对应的真实仪器号写在后面（LCR仪器必须，CG5仪器不需要）\n")
-#拾取平差dzj文件
+# 拾取平差dzj文件
 for line in islice(ynk_file, 3, 4):
     dzj_line = line.strip()
-#
-#拾取观测仪器和一次项系数及格值表（LCR仪器必须读取）
+
+# 拾取观测仪器和一次项系数及格值表（LCR仪器必须读取）
 i = 0
 for line in islice(ynk_file, 0, None):
     name = line.split()
@@ -81,7 +82,7 @@ for line in islice(ynk_file, 0, None):
             continue
     else:
         break
-#
+
 outfile.write("#---------------------------------------------------------------------------------------\n")
 outfile.write("#定义点志记文件\n")
 outfile.write("n1 = gg.Network('%s',1)\n" % NetName)
@@ -98,13 +99,13 @@ current_num = 1
 while current_num <= i:
     outfile.write("s1.add_meter(m%d)\n" % current_num)
     current_num += 1
-#
+
 outfile.write("#为平差添加测网信息文件即点志记文件，无需修改\n")
 outfile.write("s1.net = n1\n")
 outfile.write("#添加平差数据文件\n")
-#
-[dzj_numbers, dzj_names, dzj_latitudes, dzj_longitudes, dzj_elevations] = make_data.data_file(dzj_file, 0, 0)
-#
+
+[dzj_numbers, dzj_names, dzj_latitudes, dzj_longitudes, dzj_elevations] = data_file(dzj_file, 0, 0)
+
 for line in islice(ynk_file, 1, None):
     ag = line.split()
     if ag[0] == '99999':
@@ -130,13 +131,13 @@ for line in islice(ynk_file, 0, None):
         break
     else:
         outfile.write("s1.read_survey_file('%s\%s')\n" % (directory, adjustment_file))
-        adjustmentDataCheck.check_adjustment_data(os.path.join(directory, adjustment_file))
-        make_data.pressureAndTemperatureMapping(os.path.join(directory, adjustment_file))
-        all_number = make_data.data_file(os.path.join(directory, adjustment_file), 1, 2)
+        check_adjustment_data(os.path.join(directory, adjustment_file))
+        pressureAndTemperatureMapping(os.path.join(directory, adjustment_file))
+        all_number = data_file(os.path.join(directory, adjustment_file), 1, 2)
         allnumbers.extend(all_number)
-#
-adjustmentDataCheck.check_ag_data(allnumbers, os.path.join(directory, AG))
-#
+
+check_ag_data(allnumbers, os.path.join(directory, AG))
+
 outfile.write("#---------------------------------------------------------------------------------------\n")
 outfile.write("#固体潮、气压改正\n")
 outfile.write("s1.corr_aux_effect()\n")
@@ -151,7 +152,7 @@ outfile.write("gravwork.add_ag_from_file('%s\%s')\n" % (directory, AG))
 outfile.write("#将绝对点信息添加测量到平差任务\n")
 outfile.write("gravwork.add_surveys(s1)\n")
 outfile.write("print(gravwork)\n")
-#
+
 outfile.write("#---------------------------------------------------------------------------------------\n")
 outfile.write("#开始平差\n")
 outfile.write("#1:cls ; 2:Baj; 3:Baj1(当需要对1台仪器做格值标定时用3)\n")
@@ -168,7 +169,6 @@ outfile.write("#输出文件内容为平差后各测段的段差及误差。文�
 outfile.write("gravwork.export_dc('%s\%s')\n" % (directory, dcfile))
 outfile.write("#根据野外实测顺序段差、误差和残差输出\n")
 outfile.write("gravwork.export_dc_all('%s\%s')\n" % (directory, ddfile))
-#
+
 ynk_file.close()
 outfile.close()
-#
